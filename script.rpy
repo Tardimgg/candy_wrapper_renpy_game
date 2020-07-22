@@ -1,4 +1,4 @@
-﻿label start:
+label start:
 
     "ewfyg" "start"
 
@@ -48,7 +48,6 @@
                 if "box_view" in kwargs:
                     kwargs["box_view"].addView(self)
                 self._root_view = view
-                #super(Button, self).__init__(position, self._root_text)
 
             def event(self, position, **kwargs):
                 if "recursive_event" in kwargs:
@@ -202,12 +201,12 @@
 
 
         class FieldView(View):
-            def __init__(self, position, size, view_color, *views, **kwargs):
+            def __init__(self, position, root_view, *views, **kwargs):
                 if "box_view" in kwargs:
                     kwargs["box_view"].addView(self)
                 self._child_view = []
                 self._child_start_position = []
-                self._view = Solid(view_color, xsize=size[0], ysize=size[1])
+                self._view = root_view
                 self._position = position
                 super(FieldView, self).__init__(self._position, self._view)
                 for value in views:
@@ -386,7 +385,7 @@
                 self._FPS = 60
                 self._clock = pygame.time.Clock()
                 self._exit_button = ButtonView(View((1050, 630), Text("Продолжить")), box_view=self._box_view)
-                self._text_color = "#583613"
+                #self._text_color = "#583613"
                 self._correct_answer = [["белка"], ["слон"], ["медведь", "медведи"], ["петух", "петушок"], ["носорог"], ["собака", "тузик"]]
 
 
@@ -401,12 +400,14 @@
                 self._5_image = FlyView(View((1770, 150), Image("5_photo(1).jpg")), speed=10, box_view=self._box_view)
                 self._6_image = FlyView(View((2165, 150), Image("6_photo(1).jpg")), speed=10, box_view=self._box_view)
 
-                self._text_input_for_1_image = FlyView(FieldView((104, 398), (280, 32), self._text_color, EditText("жв.", (5, 0), max_symbol=14)), speed=10, box_view=self._box_view)
-                self._text_input_for_2_image = FlyView(FieldView((499, 398), (280, 32), self._text_color, EditText("жв.", (5, 0), max_symbol=14)), speed=10, box_view=self._box_view)
-                self._text_input_for_3_image = FlyView(FieldView((894, 398), (280, 32), self._text_color, EditText("жв.", (5, 0), max_symbol=14)), speed=10, box_view=self._box_view)
-                self._text_input_for_4_image = FlyView(FieldView((1384, 398), (280, 32), self._text_color, EditText("жв.", (5, 0), max_symbol=14)), speed=10, box_view=self._box_view)
-                self._text_input_for_5_image = FlyView(FieldView((1779, 398), (280, 32), self._text_color, EditText("жв.", (5, 0), max_symbol=14)), speed=10, box_view=self._box_view)
-                self._text_input_for_6_image = FlyView(FieldView((2174, 398), (280, 32), self._text_color, EditText("жв.", (5, 0), max_symbol=14)), speed=10, box_view=self._box_view)
+                view_for_input_field_color = "#583613"
+
+                self._text_input_for_1_image = FlyView(FieldView((104, 398), Solid(view_for_input_field_color, xsize=280, ysize=32), EditText("жв.", (5, 0), max_symbol=14)), speed=10, box_view=self._box_view)
+                self._text_input_for_2_image = FlyView(FieldView((499, 398), Solid(view_for_input_field_color, xsize=280, ysize=32), EditText("жв.", (5, 0), max_symbol=14)), speed=10, box_view=self._box_view)
+                self._text_input_for_3_image = FlyView(FieldView((894, 398), Solid(view_for_input_field_color, xsize=280, ysize=32), EditText("жв.", (5, 0), max_symbol=14)), speed=10, box_view=self._box_view)
+                self._text_input_for_4_image = FlyView(FieldView((1384, 398), Solid(view_for_input_field_color, xsize=280, ysize=32),  EditText("жв.", (5, 0), max_symbol=14)), speed=10, box_view=self._box_view)
+                self._text_input_for_5_image = FlyView(FieldView((1779, 398), Solid(view_for_input_field_color, xsize=280, ysize=32),  EditText("жв.", (5, 0), max_symbol=14)), speed=10, box_view=self._box_view)
+                self._text_input_for_6_image = FlyView(FieldView((2174, 398), Solid(view_for_input_field_color, xsize=280, ysize=32),  EditText("жв.", (5, 0), max_symbol=14)), speed=10, box_view=self._box_view)
 
                 self._text_input = [self._text_input_for_1_image, self._text_input_for_2_image, self._text_input_for_3_image, self._text_input_for_4_image, self._text_input_for_5_image, self._text_input_for_6_image]
 
